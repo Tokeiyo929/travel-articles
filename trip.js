@@ -11,15 +11,11 @@
         errorMessage.textContent = error.message;
     }
 
-    // 图片包一层 figure，把 alt 变成图注
+    // 图片包一层 figure，把 alt 变成图注（仅处理独立成段的图片，避免重复包图注）
     function wrapFigures(html) {
-        return html.replace(/<p><img([^>]*?)alt="([^"]*)"([^>]*)><\/p>/g,
+        return html.replace(/<p>\s*<img([^>]*?)alt="([^"]*)"([^>]*)>\s*<\/p>/g,
             (_, pre, alt, post) =>
-                `<figure><img${pre}alt="${alt}"${post}>${alt ? `<figcaption>${alt}</figcaption>` : ''}</figure>`)
-            .replace(/<img([^>]*?)alt="([^"]*)"([^>]*)>/g, (m, pre, alt, post) => {
-                if (m.startsWith('<figure') || alt === '') return m;
-                return `<figure><img${pre}alt="${alt}"${post}><figcaption>${alt}</figcaption></figure>`;
-            });
+                `<figure><img${pre}alt="${alt}"${post}>${alt ? `<figcaption>${alt}</figcaption>` : ''}</figure>`);
     }
 
     // 灯箱
