@@ -53,6 +53,10 @@ excerpt: 四天时间，在河内的摩托洪流里学会了过马路的正确�
 
 ![圣若瑟大教堂，哥特式双塔](images/hanoi/IMG_1122.webp)
 
+从教堂出来，我们拐去了火车街。铁轨从窄巷正中穿过，两旁的咖啡馆把矮凳摆到离轨道只有一步远，头顶挂着竹编灯笼和红灯笼。九点二十分，人群忽然骚动——一列红色的内燃机车贴着店铺迎面驶来，风裹着柴油味扫过每一张脸。几十秒后巷子恢复安静，咖啡继续，仿佛什么都没发生。
+
+<figure><video controls preload="metadata" poster="images/hanoi/IMG_1124.jpg" src="images/hanoi/IMG_1124.mp4" playsinline></video><figcaption>火车贴脸驶过的三十秒（当日实拍视频）</figcaption></figure>
+
 然后是巴亭广场。从老城一路向西北，街道渐渐开阔。广场大得过分，草坪修剪得整整齐齐，中轴线尽头就是胡志明纪念堂——灰色大理石的柱廊式建筑，安静地压住整个广场的重心。旗杆上红旗猎猎，两侧的标语牌上写着"CHỦ TỊCH HỒ CHÍ MINH"。
 
 ![巴亭广场，中轴线尽头是胡志明纪念堂](images/hanoi/IMG_1126.webp)

@@ -62,7 +62,10 @@
             html = html.replace(/<(\/?)h([1-5])(\s[^>]*)?>/g,
                 (_, closing, level, attrs = '') => `<${closing}h${Number(level) + 1}${attrs}>`);
 
-            contentContainer.innerHTML = DOMPurify.sanitize(wrapFigures(html));
+            contentContainer.innerHTML = DOMPurify.sanitize(wrapFigures(html), {
+                ADD_TAGS: ['video', 'source'],
+                ADD_ATTR: ['controls', 'poster', 'preload', 'playsinline']
+            });
             contentContainer.hidden = false;
             loading.hidden = true;
 

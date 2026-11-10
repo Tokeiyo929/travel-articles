@@ -70,6 +70,12 @@ body {
     margin-top: 10px; text-align: center; font-size: 0.85rem;
     color: var(--ink-soft); letter-spacing: 0.06em;
 }
+#markdown-content video {
+    width: 100%; display: block;
+    border: 1px solid var(--line);
+    box-shadow: 0 6px 22px rgba(60, 45, 25, 0.10);
+    background: #000;
+}
 
 /* 灯箱 */
 .lightbox {
