@@ -33,6 +33,12 @@ excerpt: 四天时间，在河内的摩托洪流里学会了过马路的正确�
 
 ![大剧院门前的演唱会海报](images/hanoi/IMG_1103.webp)
 
+走近才发现，海报说的不是预告，是正在发生：大剧院门前的小广场上真的搭起了台，乐队正在演出，绿色激光扫过法式立面，观众窝在藤椅咖啡座里，头顶的大风扇慢悠悠摇着脑袋。没买票，站在边上蹭了大半首。
+
+<figure><video controls preload="metadata" poster="images/hanoi/IMG_1101.jpg" src="images/hanoi/IMG_1101.mp4" playsinline></video><figcaption>MUSIC GARDEN 露天演出现场，观众席就是咖啡馆座（当日实拍视频）</figcaption></figure>
+
+<figure><video controls preload="metadata" poster="images/hanoi/IMG_1102.jpg" src="images/hanoi/IMG_1102.mp4" playsinline></video><figcaption>灯光扫过大剧院立面（当日实拍视频）</figcaption></figure>
+
 # 第二天：咖啡因和霓虹
 
 河内的早晨从一份油纸包的点心开始。木托盘、小马扎、街边的矮桌，这是这座城市的标准餐桌。
