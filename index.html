@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="referrer" content="strict-origin-when-cross-origin">
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; base-uri 'self'; object-src 'none'; form-action 'self'; script-src 'self'; style-src 'self'; font-src 'self' data:; img-src 'self' https: data:; upgrade-insecure-requests">
+    <title>山河手帖 · 旅行笔记</title>
+    <link rel="icon" href="favicon.svg" type="image/svg+xml">
+    <link rel="stylesheet" href="vendor/fontawesome/all.min.css">
+    <style>
+        :root {
+            --paper: #f8f4ec;
+            --ink: #2c2620;
+            --ink-soft: #6b6257;
+            --accent: #a4452c;
+            --line: #e2d9c8;
+            --card: #fffdf8;
+        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        html { scroll-behavior: smooth; }
+        body {
+            background: var(--paper);
+            color: var(--ink);
+            font-family: "Noto Serif SC", "Source Han Serif SC", "Songti SC", SimSun, Georgia, serif;
+            line-height: 1.8;
+            -webkit-font-smoothing: antialiased;
+        }
+        .wrap { max-width: 1080px; margin: 0 auto; padding: 0 24px; }
+
+        /* 顶栏 */
+        .site-head {
+            display: flex; align-items: baseline; justify-content: space-between;
+            padding: 28px 0 20px; border-bottom: 3px double var(--line);
+        }
+        .site-title { font-size: 1.5rem; letter-spacing: 0.35em; font-weight: 700; }
+        .site-title a { color: var(--ink); text-decoration: none; }
+        .site-nav a { color: var(--ink-soft); text-decoration: none; font-size: 0.92rem; margin-left: 22px; letter-spacing: 0.12em; }
+        .site-nav a:hover { color: var(--accent); }
+
+        /* 头图区 */
+        .hero { padding: 64px 0 48px; }
+        .hero .kicker {
+            font-size: 0.85rem; letter-spacing: 0.4em; color: var(--accent);
+            margin-bottom: 14px;
+        }
+        .hero h1 { font-size: clamp(2rem, 5vw, 3rem); font-weight: 700; letter-spacing: 0.08em; }
+        .hero p { margin-top: 16px; color: var(--ink-soft); max-width: 640px; font-size: 1.02rem; }
+        .hero .stat-row { margin-top: 26px; display: flex; gap: 34px; font-size: 0.9rem; color: var(--ink-soft); }
+        .hero .stat-row b { color: var(--ink); font-size: 1.15rem; font-weight: 700; }
+
+        /* 游记卡片 */
+        .section-label {
+            display: flex; align-items: center; gap: 14px;
+            margin: 26px 0 22px; font-size: 0.85rem; letter-spacing: 0.3em; color: var(--ink-soft);
+        }
+        .section-label::after { content: ""; flex: 1; height: 1px; background: var(--line); }
+
+        .trip-list { display: grid; gap: 34px; padding-bottom: 72px; }
+        .trip-card {
+            background: var(--card); border: 1px solid var(--line);
+            display: grid; grid-template-columns: 380px 1fr; overflow: hidden;
+            transition: box-shadow .25s ease, transform .25s ease;
+        }
+        .trip-card:hover { box-shadow: 0 14px 34px rgba(60, 45, 25, 0.12); transform: translateY(-2px); }
+        .trip-cover { position: relative; min-height: 250px; overflow: hidden; }
+        .trip-cover img { width: 100%; height: 100%; object-fit: cover; display: block; }
+        .trip-cover .stamp {
+            position: absolute; top: 14px; left: 14px;
+            background: rgba(44, 38, 32, 0.78); color: #f4ede1;
+            font-size: 0.78rem; letter-spacing: 0.18em; padding: 5px 12px;
+        }
+        .trip-body { padding: 30px 32px; display: flex; flex-direction: column; }
+        .trip-body h2 { font-size: 1.42rem; line-height: 1.5; }
+        .trip-body h2 a { color: var(--ink); text-decoration: none; }
+        .trip-body h2 a:hover { color: var(--accent); }
+        .trip-meta { margin-top: 10px; font-size: 0.86rem; color: var(--ink-soft); letter-spacing: 0.06em; }
+        .trip-meta i { margin-right: 6px; color: var(--accent); }
+        .trip-excerpt { margin-top: 14px; color: var(--ink-soft); font-size: 0.98rem; flex: 1; }
+        .spot-tags { margin-top: 18px; display: flex; flex-wrap: wrap; gap: 8px; }
+        .spot-tags span {
+            font-size: 0.78rem; color: var(--accent); border: 1px solid currentColor;
+            padding: 2px 10px; letter-spacing: 0.08em; opacity: 0.85;
+        }
+        .read-more { margin-top: 18px; font-size: 0.9rem; color: var(--accent); text-decoration: none; letter-spacing: 0.1em; }
+        .read-more:hover { text-decoration: underline; }
+
+        footer {
+            border-top: 3px double var(--line); padding: 26px 0 40px;
+            text-align: center; color: var(--ink-soft); font-size: 0.85rem; letter-spacing: 0.1em;
+        }
+
+        .empty-tip { color: var(--ink-soft); padding: 40px 0 80px; text-align: center; }
+
+        @media (max-width: 760px) {
+            .trip-card { grid-template-columns: 1fr; }
+            .trip-cover { min-height: 210px; }
+        }
+        @media (prefers-reduced-motion: reduce) {
+            .trip-card { transition: none; }
+        }
+    </style>
+</head>
+<body>
+    <div class="wrap">
+        <header class="site-head">
+            <div class="site-title"><a href="index.html">山河手帖</a></div>
+            <nav class="site-nav">
+                <a href="index.html">游记</a>
+                <a href="index.html#about">关于</a>
+            </nav>
+        </header>
+
+        <section class="hero">
+            <div class="kicker">TRAVEL NOTES</div>
+            <h1>把走过的路，写成字</h1>
+            <p>照片会褪色，坐标不会。每一篇手帖都从真实拍下的照片出发——用 GPS 找回它发生的地点，用文字记下当天的心情。</p>
+            <div class="stat-row">
+                <span><b id="stat-trips">0</b> 篇手帖</span>
+                <span><b id="stat-places">0</b> 个地方</span>
+            </div>
+        </section>
+
+        <div class="section-label">手帖一览</div>
+        <main class="trip-list" id="trip-list" aria-live="polite"></main>
+        <p class="empty-tip" id="empty-tip" hidden>手帖还在路上……</p>
+
+        <footer>
+            <p id="copyright">© 2026 山河手帖. 保留所有权利。</p>
+        </footer>
+    </div>
+
+    <script>
+    (() => {
+        const escapeHtml = s => String(s ?? '').replace(/[&<>"']/g,
+            c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+
+        async function loadTrips() {
+            const list = document.getElementById('trip-list');
+            const emptyTip = document.getElementById('empty-tip');
+            try {
+                const response = await fetch('trips-config.json', { cache: 'no-store' });
+                if (!response.ok) throw new Error('trips-config.json 加载失败');
+                const config = await response.json();
+                const trips = (config.trips || []).slice().sort((a, b) => (b.date || '').localeCompare(a.date || ''));
+
+                document.getElementById('stat-trips').textContent = trips.length;
+                document.getElementById('stat-places').textContent =
+                    new Set(trips.map(t => (t.location || '').split('·')[0].trim()).filter(Boolean)).size;
+
+                if (!trips.length) { emptyTip.hidden = false; return; }
+
+                list.innerHTML = trips.map(trip => {
+                    const cover = trip.cover
+                        ? `<div class="trip-cover"><img src="${escapeHtml(trip.cover)}" alt="${escapeHtml(trip.title)}" loading="lazy"><span class="stamp">${escapeHtml(trip.location || '')}</span></div>`
+                        : '';
+                    const spots = (trip.spots || []).map(s => `<span>${escapeHtml(s)}</span>`).join('');
+                    return `<article class="trip-card">
+                        ${cover}
+                        <div class="trip-body">
+                            <h2><a href="${escapeHtml(trip.link || '#')}">${escapeHtml(trip.title)}</a></h2>
+                            <div class="trip-meta">
+                                <i class="fas fa-location-dot" aria-hidden="true"></i>${escapeHtml(trip.location || '未知')}
+                                &nbsp;·&nbsp;
+                                <i class="fas fa-calendar-days" aria-hidden="true"></i>${escapeHtml(trip.date || '')}
+                            </div>
+                            <p class="trip-excerpt">${escapeHtml(trip.excerpt || '')}</p>
+                            <div class="spot-tags">${spots}</div>
+                            <a class="read-more" href="${escapeHtml(trip.link || '#')}">展开手帖 <i class="fas fa-arrow-right" aria-hidden="true"></i></a>
+                        </div>
+                    </article>`;
+                }).join('');
+            } catch (err) {
+                console.error(err);
+                emptyTip.hidden = false;
+                emptyTip.textContent = '手帖列表加载失败：' + err.message;
+            }
+        }
+        loadTrips();
+    })();
+    </script>
+</body>
+</html>

@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="referrer" content="strict-origin-when-cross-origin">
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; base-uri 'self'; object-src 'none'; form-action 'self'; script-src 'self'; style-src 'self'; font-src 'self' data:; img-src 'self' https: data:; upgrade-insecure-requests">
+    <title>河内四日：摩托洪流与湖畔慢光 · 山河手帖</title>
+    <link rel="icon" href="favicon.svg" type="image/svg+xml">
+    <link rel="stylesheet" href="vendor/fontawesome/all.min.css">
+    <link rel="stylesheet" href="trip.css">
+    <script defer src="vendor/marked.umd.js"></script>
+    <script defer src="vendor/purify.min.js"></script>
+    <script defer src="trip.js"></script>
+</head>
+<body data-markdown="trip1.md">
+    <div class="wrap">
+        <header class="site-head">
+            <div class="site-title"><a href="index.html">山河手帖</a></div>
+            <a class="back-link" href="index.html"><i class="fas fa-arrow-left" aria-hidden="true"></i> 回到手帖一览</a>
+        </header>
+
+        <article>
+            <header class="article-header">
+                <h1 class="article-title">河内四日：摩托洪流与湖畔慢光</h1>
+                <div class="article-meta">
+                    <span><i class="fas fa-location-dot" aria-hidden="true"></i>越南 · 河内</span>
+                    <span><i class="fas fa-calendar-days" aria-hidden="true"></i>2024-05-16</span>
+                </div>
+            </header>
+
+            <div class="loading-indicator" id="loading">
+                <i class="fas fa-spinner fa-spin" aria-hidden="true"></i>
+                <p>正在展开手帖……</p>
+            </div>
+            <div class="error-container" id="error-container" hidden>
+                <i class="fas fa-exclamation-triangle" aria-hidden="true"></i>
+                <h3>内容加载失败</h3>
+                <p id="error-message">未知错误</p>
+                <button type="button" id="retry-load" class="copy-button">
+                    <i class="fas fa-redo" aria-hidden="true"></i> 重新加载
+                </button>
+            </div>
+            <div id="markdown-content" hidden></div>
+        </article>
+
+        <footer>
+            <p>© 2026 山河手帖 · <a href="index.html">更多手帖</a></p>
+        </footer>
+    </div>
+</body>
+</html>

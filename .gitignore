@@ -1,0 +1,9 @@
+# 原始素材体积过大（345MB HEIC/livp/MOV），不入库，本地保留
+越南/
+
+# 系统与临时文件
+__pycache__/
+*.log
+Thumbs.db
+~$*
+.zcode/

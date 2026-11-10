@@ -1,0 +1,91 @@
+/* 山河手帖 · 手帖页样式 */
+:root {
+    --paper: #f8f4ec;
+    --ink: #2c2620;
+    --ink-soft: #6b6257;
+    --accent: #a4452c;
+    --line: #e2d9c8;
+    --card: #fffdf8;
+}
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body {
+    background: var(--paper);
+    color: var(--ink);
+    font-family: "Noto Serif SC", "Source Han Serif SC", "Songti SC", SimSun, Georgia, serif;
+    line-height: 1.9;
+    -webkit-font-smoothing: antialiased;
+}
+.wrap { max-width: 780px; margin: 0 auto; padding: 0 24px; }
+
+.site-head {
+    display: flex; align-items: baseline; justify-content: space-between;
+    padding: 24px 0 18px; border-bottom: 3px double var(--line);
+}
+.site-title { font-size: 1.2rem; letter-spacing: 0.3em; font-weight: 700; }
+.site-title a { color: var(--ink); text-decoration: none; }
+.site-title a:hover { color: var(--accent); }
+.back-link { color: var(--ink-soft); text-decoration: none; font-size: 0.9rem; letter-spacing: 0.1em; }
+.back-link:hover { color: var(--accent); }
+
+.loading-indicator, .error-container { text-align: center; padding: 80px 0; color: var(--ink-soft); }
+.error-container h3 { color: var(--accent); margin-bottom: 8px; }
+.copy-button {
+    margin-top: 12px; cursor: pointer; font: inherit; font-size: 0.9rem;
+    background: var(--card); color: var(--accent); border: 1px solid var(--accent);
+    padding: 6px 16px;
+}
+
+/* 文章头 */
+.article-header { padding: 46px 0 30px; border-bottom: 1px solid var(--line); margin-bottom: 34px; }
+.article-title { font-size: clamp(1.6rem, 4vw, 2.2rem); line-height: 1.5; letter-spacing: 0.04em; }
+.article-meta { margin-top: 16px; display: flex; flex-wrap: wrap; gap: 20px; color: var(--ink-soft); font-size: 0.9rem; }
+.article-meta i { margin-right: 7px; color: var(--accent); }
+
+/* 正文 */
+#markdown-content { padding-bottom: 60px; font-size: 1.02rem; }
+#markdown-content p { margin: 0 0 1.4em; }
+#markdown-content h2 {
+    font-size: 1.35rem; margin: 2.2em 0 1em; letter-spacing: 0.06em;
+    border-left: 4px solid var(--accent); padding-left: 14px; line-height: 1.5;
+}
+#markdown-content h3 { font-size: 1.12rem; margin: 1.8em 0 0.8em; color: var(--ink); }
+#markdown-content blockquote {
+    margin: 1.6em 0; padding: 8px 20px; color: var(--ink-soft);
+    border-left: 3px solid var(--line); background: rgba(255, 253, 248, 0.7);
+}
+#markdown-content ul, #markdown-content ol { padding-left: 1.6em; margin-bottom: 1.4em; }
+#markdown-content li { margin-bottom: 0.4em; }
+#markdown-content a { color: var(--accent); }
+#markdown-content hr { border: none; border-top: 1px dashed var(--line); margin: 2.4em 0; }
+#markdown-content strong { color: var(--ink); }
+
+/* 图片：图注 + 展示 */
+#markdown-content figure { margin: 2em 0; }
+#markdown-content figure img, #markdown-content img {
+    width: 100%; display: block; border: 1px solid var(--line);
+    box-shadow: 0 6px 22px rgba(60, 45, 25, 0.10);
+    cursor: zoom-in;
+}
+#markdown-content figcaption {
+    margin-top: 10px; text-align: center; font-size: 0.85rem;
+    color: var(--ink-soft); letter-spacing: 0.06em;
+}
+
+/* 灯箱 */
+.lightbox {
+    position: fixed; inset: 0; z-index: 999; display: none;
+    background: rgba(28, 24, 20, 0.92);
+    align-items: center; justify-content: center; cursor: zoom-out;
+}
+.lightbox.open { display: flex; }
+.lightbox img { max-width: 94vw; max-height: 92vh; box-shadow: none; border: none; }
+
+footer {
+    border-top: 3px double var(--line); padding: 24px 0 40px;
+    text-align: center; color: var(--ink-soft); font-size: 0.85rem; letter-spacing: 0.1em;
+}
+footer a { color: var(--accent); text-decoration: none; }
+
+@media (prefers-reduced-motion: reduce) {
+    * { transition: none !important; animation: none !important; }
+}
