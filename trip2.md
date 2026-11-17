@@ -97,6 +97,10 @@ excerpt: 在金边只停留了十五个小时：落地就为车费跟突突车�
 
 # 从柬中友谊医院到皇家大学
 
+从那条街出来，我误打误撞走进了一个大院：金色屋顶的佛殿一层叠一层，红漆大门，土场停满了车，旗杆上挂着柬埔寨国旗。手机正拍着，一声狗叫在脚边炸响，镜头猛地朝下一沉——一条狗不知什么时候凑到了腿边，我以为它要咬人。人和狗僵在原地，我居然把剩下的几秒拍完了：连成一片的殿檐确实好看，闯都闯进来了，不拍可惜。于是这段视频的前半段是佛殿，最后几秒，全是我鞋面前的碎石地面。后来想，那院子多半是寺院的，狗也多半是寺院的狗——它尽忠职守，我全身而退。
+
+<figure><video controls preload="metadata" poster="images/phnompenh/IMG_3630.jpg" src="images/phnompenh/IMG_3630.mp4" playsinline></video><figcaption>误入寺院大院拍佛殿，狗叫一声，镜头朝下一沉（当日实拍视频）</figcaption></figure>
+
 八点半以后，扫街继续。柬中友谊医院的白色矮门上刻着"CAMBODIA-CHINA FRIENDSHIP PREAH KOSSAMAK HOSPITAL"，门柱一边一国国旗；街口，中通快递的卡车等着红灯，车头的 ZTO 和中文一样不用翻译。再往北，美国太平洋国际学校立着中英双语的校牌，皇家金边大学的围墙上是一排金色的高棉文和"…PHNOM PENH UNIVERSITE ROYALE DE P…"的英文校名。
 
 ![柬中友谊医院大门，柬中国旗并挂](images/phnompenh/IMG_3656.webp)
