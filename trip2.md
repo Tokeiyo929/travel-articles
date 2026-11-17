@@ -87,6 +87,10 @@ excerpt: 在金边只停留了十五个小时：落地就为车费跟突突车�
 
 ![独立纪念碑的红砂岩石塔](images/phnompenh/IMG_3591.webp)
 
+纪念碑和超市之间，还夹着一条奇怪的街：家家店门口都摆着一座座金色的多层小宫殿，蓝金的、白金的、红金的，檐角翘着凤头，大的有一人高，小的能捧在手心。我当时以为是四面佛，回来查了才知道，这些是柬埔寨店家门口供的土地神龛——招财、保平安；早上街角那只鎏金神龛里供的粉色汽水，就是给它准备的。整条街都在卖，生意应该不错。
+
+<figure><video controls preload="metadata" poster="images/phnompenh/IMG_3594.jpg" src="images/phnompenh/IMG_3594.mp4" playsinline></video><figcaption>神龛一条街，店门口摆满待售的鎏金小宫殿（当日实拍视频）</figcaption></figure>
+
 七点四十五分，便利店。不是计划里的早饭，是投降——日料汤店被否决之后，街上实在找不到能吃饭的地方，只能钻进店里。货架上三排 MAMA 杯面，冷柜里抽出一只 INDOMILK"GOOD Milk"，价签上是 4900。牛奶是我在路上最喜欢的东西之一：天热，人渴，它便宜、解渴、有蛋白质，一瓶下去，水和能量一起补齐。盒底的印尼文小字——TUTUP LEBIH RAPIK DAN AMAN，DOUBLE LOCK PROTECTION——说明它从雅加达出发，比我先到金边。此后它一直被拎在手里，陪我走完了城南的旧街巷。
 
 ![INDOMILK 牛奶盒，价签 4900](images/phnompenh/IMG_3611.webp)
