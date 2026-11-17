@@ -65,7 +65,7 @@ excerpt: 在金边只停留了十五个小时：落地就为车费跟突突车�
 
 <figure><video controls preload="metadata" poster="images/phnompenh/IMG_3548.jpg" src="images/phnompenh/IMG_3548.mp4" playsinline></video><figcaption>沿王宫外墙移动的长镜头：明黄宫墙、棕榈树和红锥形殿顶（当日实拍视频）</figcaption></figure>
 
-拐出广场，街角的汤店还没开门，招牌写着"MASTER SUKI SOUP"，价目牌上 $9.99，下面一行 Chivas $3.20——汤和威士忌挂同一块牌子。
+拐出广场，肚子开始提意见。在谷歌地图上搜"附近的美食"，结果只有一家：MASTER SUKI SOUP。走过去，价目牌上 $9.99，下面一行 Chivas $3.20——汤和威士忌挂同一块牌子。站在门口犹豫了一下：来柬埔寨，吃日本料理，多少有点傻。拍了一张，走了。
 
 ![MASTER SUKI SOUP 的门面，汤和威士忌同牌](images/phnompenh/IMG_3556.webp)
 
