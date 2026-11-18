@@ -1,0 +1,8 @@
+{
+  "_readme": "人像/隐私照片清单。photos 的 key = 站内图片相对路径（images/...）；value.substitute = 游客模式下的替代图（建议同批次风景/空景照），缺省则显示统一占位卡。人像照入文前必须在此登记（见 travelogue-writing skill）。站点主人 GitHub 登录后（隐私模式）始终显示原图。",
+  "photos": {
+    "images/hanoi/IMG_1093.webp": { "substitute": "images/hanoi/IMG_1096.webp", "label": "街头自拍（2024-11 河内）" },
+    "images/hanoi/IMG_1122.webp": { "substitute": "images/hanoi/IMG_1100.webp", "label": "圣若瑟主教座堂前自拍（2024-11 河内）" },
+    "images/hanoi/IMG_1126.webp": { "substitute": "images/hanoi/IMG_1130.webp", "label": "巴亭广场自拍（2024-11 河内）" }
+  }
+}

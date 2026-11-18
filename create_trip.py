@@ -34,14 +34,16 @@ HTML_TEMPLATE = """<!DOCTYPE html>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="referrer" content="strict-origin-when-cross-origin">
-    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; base-uri 'self'; object-src 'none'; form-action 'self'; script-src 'self'; style-src 'self'; font-src 'self' data:; img-src 'self' https: data:; upgrade-insecure-requests">
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; base-uri 'self'; object-src 'none'; form-action 'self'; script-src 'self'; style-src 'self'; font-src 'self' data:; img-src 'self' https: data:; connect-src 'self' https://api.github.com; upgrade-insecure-requests">
     <title>{title} · 山河手帖</title>
     <link rel="icon" href="favicon.svg" type="image/svg+xml">
     <link rel="stylesheet" href="vendor/fontawesome/all.min.css">
     <link rel="stylesheet" href="trip.css">
+    <link rel="stylesheet" href="auth.css">
     <script defer src="vendor/marked.umd.js"></script>
     <script defer src="vendor/purify.min.js"></script>
     <script defer src="trip.js"></script>
+    <script defer src="auth.js"></script>
 </head>
 <body data-markdown="{md}">
     <div class="wrap">
