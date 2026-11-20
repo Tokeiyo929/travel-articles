@@ -1,6 +1,7 @@
 <view class="page">
   <view class="map-wrap fade-in">
     <image class="map" src="/assets/world-map.svg" mode="widthFix" />
+    <image wx:if="{{routesSrc}}" class="routes" src="{{routesSrc}}" mode="scaleToFill" />
     <view
       wx:for="{{visited}}"
       wx:key="name"
@@ -16,7 +17,9 @@
     </view>
   </view>
 
-  <view class="stats">到过 <text class="accent">{{cityCount}}</text> 座城市 · <text class="accent">{{countryCount}}</text> 个国家</view>
+  <view class="stats">到过 <text class="accent">{{cityCount}}</text> 座城市 · <text class="accent">{{countryCount}}</text> 个国家<text wx:if="{{journeyCount}}"> · <text class="accent">{{journeyCount}}</text> 段行程</text></view>
+
+  <view wx:if="{{journeyCount}}" class="j-entry" hover-class="j-entry-hover" bindtap="goJourney">✈ 航班与车次 ›</view>
 
   <view class="cities">
     <view

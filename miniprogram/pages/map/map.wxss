@@ -15,6 +15,13 @@
   width: 100%;
   display: block;
 }
+.routes {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+}
 
 /* 标记：锚点落在经纬换算的百分比处（与 svg 同一投影） */
 .marker {
@@ -79,6 +86,16 @@
   color: #6b6257;
   letter-spacing: 1px;
 }
+.j-entry {
+  margin: -6px auto 14px;
+  width: fit-content;
+  padding: 5px 14px;
+  font-size: 12px;
+  letter-spacing: 1px;
+  color: #a4452c;
+  border: 1px solid #a4452c;
+}
+.j-entry-hover { background: rgba(164, 69, 44, 0.06); }
 
 .cities {
   display: flex;

@@ -19,10 +19,14 @@
   font-size: 13px;
   color: #6b6257;
 }
+.entries {
+  margin-top: 16px;
+  display: flex;
+  gap: 10px;
+}
 .map-entry {
   display: inline-flex;
   align-items: center;
-  margin-top: 16px;
   padding: 7px 14px;
   font-size: 13px;
   letter-spacing: 1px;

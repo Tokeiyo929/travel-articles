@@ -14,5 +14,8 @@ Page({
   },
   openMap() {
     wx.navigateTo({ url: "/pages/map/map" });
+  },
+  openJourney() {
+    wx.navigateTo({ url: "/pages/journey/journey" });
   }
 });

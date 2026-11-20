@@ -211,6 +211,60 @@ function buildVisited() {
   return cities;
 }
 
+// ---------- 行程（航班/车次） ----------
+
+const MODE_COLOR = { flight: "#a4452c", train: "#5b6470" };
+const MODE_LABEL = { flight: "航班", train: "车次" };
+
+// 等距圆柱下两点间带一点弧度的虚线（Q 曲线，恒向北弓）
+function journeyPath(from, to) {
+  const x1 = projX(from.lng);
+  const y1 = projY(from.lat);
+  const x2 = projX(to.lng);
+  const y2 = projY(to.lat);
+  const dx = x2 - x1;
+  const dy = y2 - y1;
+  const dist = Math.hypot(dx, dy);
+  if (dist < 1) return { line: "", from: [x1, y1], to: [x2, y2] };
+  let nx = -dy / dist;
+  let ny = dx / dist;
+  if (ny > 0) { nx = -nx; ny = -ny; } // 弓向北
+  const bow = dist * 0.12;
+  const line = `M${x1.toFixed(1)} ${y1.toFixed(1)}Q${(x1 + dx / 2 + nx * bow).toFixed(1)} ${(y1 + dy / 2 + ny * bow).toFixed(1)} ${x2.toFixed(1)} ${y2.toFixed(1)}`;
+  return { line, from: [x1, y1], to: [x2, y2] };
+}
+
+function buildJourneys() {
+  const raw = JSON.parse(fs.readFileSync(path.join(ROOT, "journeys.json"), "utf8"));
+  const journeys = (raw.journeys || []).map((j) => ({
+    mode: j.mode === "train" ? "train" : "flight",
+    date: j.date || "",
+    from: j.from,
+    to: j.to,
+    no: j.no || "",
+    trip: j.trip || null
+  }));
+  journeys.sort((a, b) => (b.date || "").localeCompare(a.date || ""));
+
+  // 路线叠层 SVG（data URI），坐标与 world-map.svg 同一投影
+  const parts = [];
+  for (const j of journeys) {
+    const color = MODE_COLOR[j.mode];
+    const { line, from, to } = journeyPath(j.from, j.to);
+    if (!line) continue;
+    parts.push(`<path d="${line}" fill="none" stroke="${color}" stroke-width="2.5" stroke-dasharray="7 5"/>`);
+    for (const [x, y] of [from, to]) {
+      parts.push(`<circle cx="${x.toFixed(1)}" cy="${y.toFixed(1)}" r="4.5" fill="#f8f4ec" stroke="${color}" stroke-width="2"/>`);
+    }
+  }
+  const svg = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 ${MAP_W} ${MAP_H}">${parts.join("")}</svg>`;
+  const routesSvg = journeys.length
+    ? `data:image/svg+xml;charset=utf-8,${encodeURIComponent(svg)}`
+    : "";
+  console.log(`[OK] journeys: ${journeys.length} 段（${journeys.filter((j) => j.mode === "flight").length} 飞 / ${journeys.filter((j) => j.mode === "train").length} 车）`);
+  return { journeys, routesSvg, modeLabel: MODE_LABEL };
+}
+
 function main() {
   fs.mkdirSync(OUT_DIR, { recursive: true });
   const config = JSON.parse(fs.readFileSync(path.join(ROOT, "trips-config.json"), "utf8"));
@@ -226,7 +280,12 @@ function main() {
   const articles = {};
   for (const t of trips) articles[t.id] = buildTrip(t.id);
   // 单文件静态 require，页面端不碰动态路径
-  writeData("articles.js", { trips, articles, visited: buildVisited() });
+  writeData("articles.js", {
+    trips,
+    articles,
+    visited: buildVisited(),
+    ...buildJourneys()
+  });
 }
 
 const wantMap = process.argv.includes("--map") || process.argv.includes("--force-map");

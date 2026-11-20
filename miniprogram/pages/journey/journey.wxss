@@ -1,0 +1,102 @@
+/* 行程足迹：航班/车次时间线 */
+
+.page {
+  min-height: 100vh;
+  padding: 18px 20px 40px;
+}
+
+.head {
+  padding-bottom: 14px;
+  border-bottom: 1px solid #e2d9c8;
+}
+.head-title {
+  margin-top: 6px;
+  font-size: 22px;
+  font-weight: 700;
+}
+.head-sub {
+  margin-top: 6px;
+  font-size: 12px;
+  color: #6b6257;
+  letter-spacing: 0.5px;
+}
+
+.empty {
+  padding: 60px 0;
+  text-align: center;
+}
+.empty-icon {
+  font-size: 34px;
+  color: #c9bda6;
+}
+.empty-text {
+  margin-top: 10px;
+  font-size: 13px;
+  color: #a99f90;
+  letter-spacing: 2px;
+}
+
+.list {
+  margin-top: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.journey {
+  display: flex;
+  align-items: center;
+  background: #fffdf8;
+  border: 1px solid #e2d9c8;
+  padding: 12px 14px;
+}
+.j-mode {
+  width: 34px;
+  height: 34px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 15px;
+  flex-shrink: 0;
+}
+.j-flight { background: rgba(164, 69, 44, 0.10); color: #a4452c; }
+.j-train { background: rgba(91, 100, 112, 0.12); color: #5b6470; }
+
+.j-body { flex: 1; margin-left: 12px; overflow: hidden; }
+.j-route {
+  display: flex;
+  align-items: center;
+  font-size: 15px;
+  font-weight: 700;
+}
+.j-dash {
+  flex: 1;
+  margin: 0 8px;
+  border-top: 2px dotted #c9bda6;
+  min-width: 24px;
+}
+.j-meta {
+  margin-top: 4px;
+  font-size: 12px;
+  color: #6b6257;
+  letter-spacing: 0.5px;
+}
+
+.j-side { flex-shrink: 0; }
+.j-link {
+  font-size: 12px;
+  color: #a4452c;
+  letter-spacing: 1px;
+  padding: 4px 2px;
+}
+.j-link-hover { opacity: 0.6; }
+
+.foot {
+  margin-top: 26px;
+  text-align: center;
+  font-size: 12px;
+  letter-spacing: 2px;
+  color: #a4452c;
+  padding: 6px;
+}

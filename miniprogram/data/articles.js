@@ -580,5 +580,11 @@ module.exports = {
       "y": 49.96,
       "side": "left"
     }
-  ]
+  ],
+  "journeys": [],
+  "routesSvg": "",
+  "modeLabel": {
+    "flight": "航班",
+    "train": "车次"
+  }
 };
