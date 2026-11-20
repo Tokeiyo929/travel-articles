@@ -1,3 +1,172 @@
 {
-  "journeys": []
+  "journeys": [
+    {
+      "mode": "train",
+      "date": "2026-11-08",
+      "from": { "name": "南昌", "lat": 28.682, "lng": 115.8579 },
+      "to": { "name": "福州", "lat": 26.0745, "lng": 119.2965 },
+      "no": "Z391",
+      "trip": null
+    },
+    {
+      "mode": "train",
+      "date": "2026-11-07",
+      "from": { "name": "福州", "lat": 26.0745, "lng": 119.2965 },
+      "to": { "name": "南昌", "lat": 28.682, "lng": 115.8579 },
+      "no": "Z392",
+      "trip": null
+    },
+    {
+      "mode": "flight",
+      "date": "2026-02-22",
+      "from": { "name": "马尼拉", "lat": 14.5995, "lng": 120.9842 },
+      "to": { "name": "香港", "lat": 22.3193, "lng": 114.1694 },
+      "no": "5J",
+      "trip": null
+    },
+    {
+      "mode": "flight",
+      "date": "2026-02-21",
+      "from": { "name": "吉隆坡", "lat": 3.139, "lng": 101.6869 },
+      "to": { "name": "马尼拉", "lat": 14.5995, "lng": 120.9842 },
+      "no": "",
+      "trip": null
+    },
+    {
+      "mode": "flight",
+      "date": "2026-02-19",
+      "from": { "name": "广州", "lat": 23.1291, "lng": 113.2644 },
+      "to": { "name": "吉隆坡", "lat": 3.139, "lng": 101.6869 },
+      "no": "AK117",
+      "trip": null
+    },
+    {
+      "mode": "flight",
+      "date": "2025-10-21",
+      "from": { "name": "南昌", "lat": 28.682, "lng": 115.8579 },
+      "to": { "name": "青岛", "lat": 36.0671, "lng": 120.3826 },
+      "no": "",
+      "trip": null
+    },
+    {
+      "mode": "flight",
+      "date": "2025-10-09",
+      "from": { "name": "海参崴", "lat": 43.1332, "lng": 131.9113 },
+      "to": { "name": "沈阳", "lat": 41.8057, "lng": 123.4315 },
+      "no": "EU2732",
+      "trip": null
+    },
+    {
+      "mode": "flight",
+      "date": "2025-10-09",
+      "from": { "name": "莫斯科", "lat": 55.7558, "lng": 37.6173 },
+      "to": { "name": "海参崴", "lat": 43.1332, "lng": 131.9113 },
+      "no": "FV5802",
+      "trip": null
+    },
+    {
+      "mode": "flight",
+      "date": "2025-10-06",
+      "from": { "name": "伊斯坦布尔", "lat": 41.0082, "lng": 28.9784 },
+      "to": { "name": "莫斯科", "lat": 55.7558, "lng": 37.6173 },
+      "no": "",
+      "trip": null
+    },
+    {
+      "mode": "flight",
+      "date": "2025-10-02",
+      "from": { "name": "马尼拉", "lat": 14.5995, "lng": 120.9842 },
+      "to": { "name": "迪拜", "lat": 25.2048, "lng": 55.2708 },
+      "no": "5J014",
+      "trip": null
+    },
+    {
+      "mode": "flight",
+      "date": "2025-10-02",
+      "from": { "name": "香港", "lat": 22.3193, "lng": 114.1694 },
+      "to": { "name": "马尼拉", "lat": 14.5995, "lng": 120.9842 },
+      "no": "5J111",
+      "trip": null
+    },
+    {
+      "mode": "flight",
+      "date": "2025-05-03",
+      "from": { "name": "曼谷", "lat": 13.7563, "lng": 100.5018 },
+      "to": { "name": "香港", "lat": 22.3193, "lng": 114.1694 },
+      "no": "",
+      "trip": 2
+    },
+    {
+      "mode": "flight",
+      "date": "2025-05-01",
+      "from": { "name": "西安", "lat": 34.3416, "lng": 108.9398 },
+      "to": { "name": "金边", "lat": 11.5564, "lng": 104.9282 },
+      "no": "9C6235",
+      "trip": 2
+    },
+    {
+      "mode": "flight",
+      "date": "2025-02-24",
+      "from": { "name": "新加坡", "lat": 1.3521, "lng": 103.8198 },
+      "to": { "name": "南宁", "lat": 22.817, "lng": 108.3665 },
+      "no": "",
+      "trip": null
+    },
+    {
+      "mode": "flight",
+      "date": "2025-02-23",
+      "from": { "name": "雅加达", "lat": -6.2088, "lng": 106.8456 },
+      "to": { "name": "新加坡", "lat": 1.3521, "lng": 103.8198 },
+      "no": "",
+      "trip": null
+    },
+    {
+      "mode": "flight",
+      "date": "2025-02-21",
+      "from": { "name": "新加坡", "lat": 1.3521, "lng": 103.8198 },
+      "to": { "name": "雅加达", "lat": -6.2088, "lng": 106.8456 },
+      "no": "",
+      "trip": null
+    },
+    {
+      "mode": "flight",
+      "date": "2024-10-09",
+      "from": { "name": "首尔", "lat": 37.5665, "lng": 126.978 },
+      "to": { "name": "香港", "lat": 22.3193, "lng": 114.1694 },
+      "no": "",
+      "trip": null
+    },
+    {
+      "mode": "flight",
+      "date": "2024-09-12",
+      "from": { "name": "海口", "lat": 20.0444, "lng": 110.1999 },
+      "to": { "name": "上饶", "lat": 28.4552, "lng": 117.9433 },
+      "no": "",
+      "trip": null
+    },
+    {
+      "mode": "flight",
+      "date": "2024-06-23",
+      "from": { "name": "贵阳", "lat": 26.647, "lng": 106.6302 },
+      "to": { "name": "南昌", "lat": 28.682, "lng": 115.8579 },
+      "no": "",
+      "trip": null
+    },
+    {
+      "mode": "flight",
+      "date": "2024-05-16",
+      "from": { "name": "深圳", "lat": 22.5431, "lng": 114.0579 },
+      "to": { "name": "南昌", "lat": 28.682, "lng": 115.8579 },
+      "no": "ZH9645",
+      "trip": 1
+    },
+    {
+      "mode": "flight",
+      "date": "2024-05-16",
+      "from": { "name": "河内", "lat": 21.0285, "lng": 105.8542 },
+      "to": { "name": "深圳", "lat": 22.5431, "lng": 114.0579 },
+      "no": "ZH8016",
+      "trip": 1
+    }
+  ]
 }

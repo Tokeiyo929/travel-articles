@@ -20,3 +20,8 @@ Thumbs.db
 .zcode/
 # 地理数据缓存（可再生成）
 world-countries.cache.json
+
+# 订单导出 xlsx 与临时二维码（原始 json 已入库，xlsx 本地保留）
+ctrip-orders-*.xlsx
+ctrip-orders-all.json
+tmp-qr-*.png

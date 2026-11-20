@@ -246,7 +246,7 @@ function buildJourneys() {
   }));
   journeys.sort((a, b) => (b.date || "").localeCompare(a.date || ""));
 
-  // 路线叠层 SVG（data URI），坐标与 world-map.svg 同一投影
+  // 路线叠层 SVG，坐标与 world-map.svg 同一投影
   const parts = [];
   for (const j of journeys) {
     const color = MODE_COLOR[j.mode];
@@ -258,9 +258,12 @@ function buildJourneys() {
     }
   }
   const svg = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 ${MAP_W} ${MAP_H}">${parts.join("")}</svg>`;
-  const routesSvg = journeys.length
-    ? `data:image/svg+xml;charset=utf-8,${encodeURIComponent(svg)}`
-    : "";
+  // 连线层落成包内文件：小程序 image 对 URL-encoded SVG data URI 渲染不稳，底图同款本地路径最稳
+  let routesSvg = "";
+  if (journeys.length) {
+    fs.writeFileSync(path.join(__dirname, "assets", "routes.svg"), svg);
+    routesSvg = "/assets/routes.svg";
+  }
   console.log(`[OK] journeys: ${journeys.length} 段（${journeys.filter((j) => j.mode === "flight").length} 飞 / ${journeys.filter((j) => j.mode === "train").length} 车）`);
   return { journeys, routesSvg, modeLabel: MODE_LABEL };
 }
