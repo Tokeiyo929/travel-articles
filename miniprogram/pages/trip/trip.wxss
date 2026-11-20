@@ -1,6 +1,8 @@
-/* 横屏阅读页：大图通栏 + 文字窄栏的杂志流 */
+/* 横屏阅读页 · 按成熟阅读器范式排版
+   数值依据：foliate-js（图片 max-height=视口−边距）、Ghost Casper（文字列 720px 上限）、
+   WeUI article（17px/1.6）、微信读书（长文行高 1.9、段距≈1em） */
 
-/* 自绘顶栏（app.json navigationStyle custom） */
+/* 自绘顶栏 */
 .bar {
   position: fixed;
   top: 0;
@@ -34,85 +36,84 @@
 .bar-side { width: 72px; }
 
 .page {
-  padding: 58px 0 44px;
+  padding: 52px calc(20px + env(safe-area-inset-right)) 40px calc(20px + env(safe-area-inset-left));
+}
+
+/* 内容列：上限 680px（≈42 字/行），居中，不设比例 */
+.col {
+  max-width: 680px;
+  margin-left: auto;
+  margin-right: auto;
 }
 
 /* 文头 */
 .head {
-  width: 60%;
-  min-width: 420px;
-  margin: 0 auto 14px;
-  padding-bottom: 14px;
+  margin-bottom: 14px;
+  padding-bottom: 12px;
   border-bottom: 1px solid #e2d9c8;
 }
 .head-title {
-  margin-top: 8px;
-  font-size: 26px;
+  margin-top: 6px;
+  font-size: 22px;
   font-weight: 700;
-  line-height: 1.45;
+  line-height: 1.4;
 }
 .head-meta {
-  margin-top: 8px;
+  margin-top: 6px;
   font-size: 12px;
   color: #6b6257;
   letter-spacing: 1px;
 }
 .head-spots {
-  margin-top: 10px;
+  margin-top: 8px;
   display: flex;
   flex-wrap: wrap;
   gap: 6px;
 }
 
-/* 小标题 */
+/* 小标题：上松下紧 */
 .h1 {
   display: flex;
   align-items: center;
-  width: 60%;
-  min-width: 420px;
-  margin: 32px auto 10px;
+  margin: 28px auto 8px;
 }
 .h1-bar {
   width: 4px;
-  height: 18px;
+  height: 17px;
   background: #a4452c;
   margin-right: 10px;
 }
 .h1-x {
-  font-size: 19px;
+  font-size: 18px;
   font-weight: 700;
 }
 
-/* 正文窄栏 */
+/* 正文：16px / 1.8，段距约半个行高 */
 .para {
   display: block;
-  width: 60%;
-  min-width: 420px;
-  margin: 10px auto;
-  font-size: 15px;
-  line-height: 1.95;
+  margin: 0 auto 14px;
+  font-size: 16px;
+  line-height: 1.8;
   text-align: justify;
 }
 
-/* 图与视频 */
+/* 图与视频：限高 62vh 整图可见（foliate 规则），册页装裱式居中 */
 .fig {
-  margin: 22px 0;
+  margin: 18px auto;
 }
-.fig-img {
+.fig-media {
   width: 100%;
+  height: 62vh;
   display: block;
-}
-.fig-img-portrait {
-  height: 56vh;
+  background: #efe9dc;
+  border: 1px solid #e2d9c8;
+  border-radius: 2px;
 }
 .fig-video {
-  width: 100%;
-  height: 56vh;
   background: #1c1a17;
 }
 .fig-cap {
-  margin-top: 8px;
-  padding: 0 calc(16px + env(safe-area-inset-left)) 0 calc(16px + env(safe-area-inset-right));
+  margin-top: 7px;
   text-align: center;
   font-size: 12px;
   color: #6b6257;
@@ -122,11 +123,9 @@
 /* 手记清单 */
 .li {
   display: flex;
-  width: 60%;
-  min-width: 420px;
-  margin: 6px auto;
-  font-size: 14px;
-  line-height: 1.9;
+  margin: 5px auto;
+  font-size: 15px;
+  line-height: 1.8;
 }
 .li-dot {
   color: #a4452c;
@@ -138,7 +137,7 @@
 }
 
 .end {
-  margin: 42px 0 8px;
+  margin: 30px auto 6px;
   text-align: center;
   font-size: 12px;
   letter-spacing: 4px;

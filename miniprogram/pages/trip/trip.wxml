@@ -5,7 +5,7 @@
 </view>
 
 <view class="page" wx:if="{{trip}}">
-  <view class="head fade-in">
+  <view class="head col fade-in">
     <view class="kicker">山河手帖</view>
     <view class="head-title">{{trip.title}}</view>
     <view class="head-meta">{{trip.location}} · {{trip.date}}</view>
@@ -15,29 +15,27 @@
   </view>
 
   <block wx:for="{{trip.blocks}}" wx:key="index">
-    <view wx:if="{{item.t === 'h1'}}" class="h1">
+    <view wx:if="{{item.t === 'h1'}}" class="h1 col">
       <view class="h1-bar"></view>
       <text class="h1-x">{{item.x}}</text>
     </view>
 
-    <rich-text wx:elif="{{item.t === 'p'}}" class="para" nodes="{{item.x}}"></rich-text>
+    <rich-text wx:elif="{{item.t === 'p'}}" class="para col" nodes="{{item.x}}"></rich-text>
 
-    <view wx:elif="{{item.t === 'img'}}" class="fig">
+    <view wx:elif="{{item.t === 'img'}}" class="fig col">
       <image
-        class="fig-img {{item.ratio < 1 ? 'fig-img-portrait' : ''}}"
+        class="fig-media"
         src="{{item.src}}"
-        mode="{{item.ratio < 1 ? 'aspectFit' : 'widthFix'}}"
+        mode="aspectFit"
         webp="{{true}}"
         lazy-load="{{true}}"
-        bindload="onImgLoad"
-        data-idx="{{index}}"
       />
       <view class="fig-cap">{{item.alt}}</view>
     </view>
 
-    <view wx:elif="{{item.t === 'video'}}" class="fig">
+    <view wx:elif="{{item.t === 'video'}}" class="fig col">
       <video
-        class="fig-video"
+        class="fig-media fig-video"
         src="{{item.src}}"
         poster="{{item.poster}}"
         controls
@@ -47,7 +45,7 @@
       <view class="fig-cap">{{item.cap}}</view>
     </view>
 
-    <view wx:elif="{{item.t === 'li'}}" class="li">
+    <view wx:elif="{{item.t === 'li'}}" class="li col">
       <text class="li-dot">·</text>
       <text class="li-x"><text wx:if="{{item.lead}}" class="li-lead">{{item.lead}}：</text>{{item.x}}</text>
     </view>
