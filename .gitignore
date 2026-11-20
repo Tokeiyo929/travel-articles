@@ -18,3 +18,5 @@ __pycache__/
 Thumbs.db
 ~$*
 .zcode/
+# 地理数据缓存（可再生成）
+world-countries.cache.json

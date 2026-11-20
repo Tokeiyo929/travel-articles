@@ -562,5 +562,23 @@ module.exports = {
         }
       ]
     }
-  }
+  },
+  "visited": [
+    {
+      "name": "河内",
+      "country": "越南",
+      "trip": 1,
+      "x": 79.4,
+      "y": 43.34,
+      "side": "left"
+    },
+    {
+      "name": "金边",
+      "country": "柬埔寨",
+      "trip": 2,
+      "x": 79.15,
+      "y": 49.96,
+      "side": "left"
+    }
+  ]
 };

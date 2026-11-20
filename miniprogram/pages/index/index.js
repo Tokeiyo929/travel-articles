@@ -11,5 +11,8 @@ Page({
     wx.navigateTo({
       url: `/pages/trip/trip?id=${e.currentTarget.dataset.id}`
     });
+  },
+  openMap() {
+    wx.navigateTo({ url: "/pages/map/map" });
   }
 });

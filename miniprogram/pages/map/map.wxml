@@ -1,0 +1,40 @@
+<view class="page">
+  <view class="map-wrap fade-in">
+    <image class="map" src="/assets/world-map.svg" mode="widthFix" />
+    <view
+      wx:for="{{visited}}"
+      wx:key="name"
+      class="marker"
+      style="left: {{item.x}}%; top: {{item.y}}%;"
+    >
+      <view class="pulse"></view>
+      <view class="dot"></view>
+      <view class="label {{item.side === 'left' ? 'label-left' : ''}}">
+        <text class="label-name">{{item.name}}</text>
+        <text class="label-country">{{item.country}}</text>
+      </view>
+    </view>
+  </view>
+
+  <view class="stats">到过 <text class="accent">{{cityCount}}</text> 座城市 · <text class="accent">{{countryCount}}</text> 个国家</view>
+
+  <view class="cities">
+    <view
+      wx:for="{{visited}}"
+      wx:key="name"
+      class="city"
+      hover-class="city-hover"
+      bindtap="openTrip"
+      data-trip="{{item.trip}}"
+    >
+      <view class="city-main">
+        <text class="city-name">{{item.name}}</text>
+        <text class="city-country">{{item.country}}</text>
+      </view>
+      <text wx:if="{{item.trip}}" class="city-link">翻手帖 ›</text>
+      <text wx:else class="city-link city-link-none">坐标已标记</text>
+    </view>
+  </view>
+
+  <view class="foot">下一站，落墨于此图</view>
+</view>

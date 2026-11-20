@@ -91,6 +91,126 @@ function writeData(name, value) {
   console.log(`[OK] data/${name}`);
 }
 
+// ---------- 旅程地图 ----------
+
+// 地图投影：等距圆柱，纬度裁到 83N ~ 60S（标准世界地图裁法，去南极）
+const MAP_W = 1000;
+const MAP_H = 500;
+const LAT_TOP = 83;
+const LAT_BOTTOM = -60;
+const projX = (lng) => ((lng + 180) / 360) * MAP_W;
+const projY = (lat) => ((LAT_TOP - lat) / (LAT_TOP - LAT_BOTTOM)) * MAP_H;
+// 页面叠层用百分比（与 svg viewBox 同一投影）
+const pctX = (lng) => +(((lng + 180) / 360) * 100).toFixed(2);
+const pctY = (lat) => +(((LAT_TOP - lat) / (LAT_TOP - LAT_BOTTOM)) * 100).toFixed(2);
+
+function loadGeoData() {
+  const cache = path.join(ROOT, "world-countries.cache.json");
+  if (!fs.existsSync(cache)) {
+    throw new Error(`缺少地理数据缓存 ${cache}：先 npm pack world-atlas@2 解出 countries-110m.json 存到该路径`);
+  }
+  const data = JSON.parse(fs.readFileSync(cache, "utf8"));
+  if (data.type !== "Topology") return data; // 已是 GeoJSON
+  // TopoJSON → GeoJSON：arcs 增量还原，负索引表示反向
+  const decoded = data.arcs.map((arc) => {
+    let x = 0;
+    let y = 0;
+    return arc.map((p) => {
+      x += p[0];
+      y += p[1];
+      return [x * data.transform.scale[0] + data.transform.translate[0],
+        y * data.transform.scale[1] + data.transform.translate[1]];
+    });
+  });
+  const ringCoords = (arcIdxList) => arcIdxList.flatMap((idx, i) => {
+    const line = idx >= 0 ? decoded[idx] : decoded[~idx].slice().reverse();
+    return i === 0 ? line : line.slice(1); // 接缝去重
+  });
+  const toGeom = (g) => {
+    if (g.type === "Polygon") {
+      return { type: "Polygon", coordinates: g.arcs.map(ringCoords) };
+    }
+    return { type: "MultiPolygon", coordinates: g.arcs.map((poly) => poly.map(ringCoords)) };
+  };
+  const geoms = data.objects.countries ? data.objects.countries.geometries : Object.values(data.objects)[0].geometries;
+  return {
+    type: "FeatureCollection",
+    features: geoms.map((g) => ({ id: g.id, properties: g.properties, geometry: toGeom(g) }))
+  };
+}
+
+// 环经线（±180）跳变处断开，避免俄罗斯东端横穿整张图
+function ringToPath(ring) {
+  const segs = [];
+  let cur = [];
+  for (let i = 0; i < ring.length; i += 1) {
+    const [lng, lat] = ring[i];
+    if (cur.length && Math.abs(lng - ring[i - 1][0]) > 180) {
+      segs.push(cur);
+      cur = [];
+    }
+    cur.push([projX(lng).toFixed(1), projY(lat).toFixed(1)]);
+  }
+  if (cur.length) segs.push(cur);
+  return segs
+    .filter((s) => s.length > 2)
+    .map((s) => `M${s.map((p) => p.join(" ")).join("L")}Z`)
+    .join("");
+}
+
+function geoToSvgPath(geometry) {
+  const polys = geometry.type === "Polygon" ? [geometry.coordinates] : geometry.coordinates;
+  return polys.map((poly) => poly.map(ringToPath).join("")).join("");
+}
+
+async function ensureMapSvg(force) {
+  const outFile = path.join(__dirname, "assets", "world-map.svg");
+  if (fs.existsSync(outFile) && !force) {
+    console.log("[SKIP] assets/world-map.svg 已存在（--force-map 重新生成）");
+    return;
+  }
+  const geo = loadGeoData();
+  const paths = [];
+  for (const f of geo.features) {
+    if (f.id === "ATA" || (f.properties && f.properties.name === "Antarctica")) continue; // 南极不画
+    const d = geoToSvgPath(f.geometry);
+    if (d) paths.push(`<path d="${d}"/>`);
+  }
+  // 经纬网：经线每 30°，纬线每 30°
+  const grid = [];
+  for (let lng = -150; lng <= 180; lng += 30) {
+    grid.push(`<line x1="${projX(lng)}" y1="0" x2="${projX(lng)}" y2="${MAP_H}"/>`);
+  }
+  for (let lat = 60; lat >= LAT_BOTTOM; lat -= 30) {
+    grid.push(`<line x1="0" y1="${projY(lat)}" x2="${MAP_W}" y2="${projY(lat)}"/>`);
+  }
+  const svg = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 ${MAP_W} ${MAP_H}">`
+    + `<g fill="none" stroke="#e2d9c8" stroke-width="0.8" stroke-dasharray="3 4" opacity="0.8">${grid.join("")}</g>`
+    + `<g fill="#e9e0cc" stroke="#b9a888" stroke-width="0.7" stroke-linejoin="round">${paths.join("")}</g>`
+    + `</svg>`;
+  fs.mkdirSync(path.dirname(outFile), { recursive: true });
+  fs.writeFileSync(outFile, svg);
+  console.log(`[OK] assets/world-map.svg（${(fs.statSync(outFile).size / 1024).toFixed(0)}KB，${paths.length} 个国家面）`);
+}
+
+function buildVisited() {
+  const raw = JSON.parse(fs.readFileSync(path.join(ROOT, "visited-cities.json"), "utf8"));
+  const cities = raw.cities.map((c) => {
+    if (typeof c.lat !== "number" || typeof c.lng !== "number") throw new Error(`城市缺坐标: ${c.name}`);
+    const x = pctX(c.lng);
+    return {
+      name: c.name,
+      country: c.country || "",
+      trip: c.trip || null,
+      x,
+      y: pctY(c.lat),
+      side: x > 70 ? "left" : "right" // 靠右缘的城市标签放点左侧
+    };
+  });
+  console.log(`[OK] visited: ${cities.length} 城市 / ${new Set(cities.map((c) => c.country)).size} 国家`);
+  return cities;
+}
+
 function main() {
   fs.mkdirSync(OUT_DIR, { recursive: true });
   const config = JSON.parse(fs.readFileSync(path.join(ROOT, "trips-config.json"), "utf8"));
@@ -106,7 +226,17 @@ function main() {
   const articles = {};
   for (const t of trips) articles[t.id] = buildTrip(t.id);
   // 单文件静态 require，页面端不碰动态路径
-  writeData("articles.js", { trips, articles });
+  writeData("articles.js", { trips, articles, visited: buildVisited() });
 }
 
-main();
+const wantMap = process.argv.includes("--map") || process.argv.includes("--force-map");
+if (wantMap) {
+  ensureMapSvg(process.argv.includes("--force-map"))
+    .then(main)
+    .catch((e) => {
+      console.error(e);
+      process.exit(1);
+    });
+} else {
+  main();
+}
