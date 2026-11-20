@@ -7,9 +7,6 @@
       <view class="map-entry" hover-class="map-entry-hover" bindtap="openMap">
         <text class="accent">◈</text> 旅程地图 <text class="map-arrow">›</text>
       </view>
-      <view class="map-entry" hover-class="map-entry-hover" bindtap="openJourney">
-        <text class="accent">✈</text> 行程足迹 <text class="map-arrow">›</text>
-      </view>
     </view>
   </view>
 

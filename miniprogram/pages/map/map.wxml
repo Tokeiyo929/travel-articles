@@ -17,9 +17,7 @@
     </view>
   </view>
 
-  <view class="stats">到过 <text class="accent">{{cityCount}}</text> 座城市 · <text class="accent">{{countryCount}}</text> 个国家<text wx:if="{{journeyCount}}"> · <text class="accent">{{journeyCount}}</text> 段行程</text></view>
-
-  <view wx:if="{{journeyCount}}" class="j-entry" hover-class="j-entry-hover" bindtap="goJourney">✈ 航班与车次 ›</view>
+  <view class="stats">到过 <text class="accent">{{cityCount}}</text> 座城市 · <text class="accent">{{countryCount}}</text> 个国家</view>
 
   <view class="cities">
     <view
