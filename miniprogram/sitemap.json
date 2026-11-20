@@ -1,0 +1,9 @@
+{
+  "desc": "山河手帖游记",
+  "rules": [
+    {
+      "action": "allow",
+      "page": "*"
+    }
+  ]
+}

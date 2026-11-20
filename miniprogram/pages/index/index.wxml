@@ -1,0 +1,32 @@
+<view class="stage">
+  <view class="rail">
+    <view class="brand">山河手帖</view>
+    <view class="rail-line"></view>
+    <view class="rail-sub">{{trips.length}} 篇手帖</view>
+  </view>
+
+  <scroll-view class="shelf" scroll-x enhanced enable-flex show-scrollbar="{{false}}">
+    <view class="cards">
+      <view
+        wx:for="{{trips}}"
+        wx:key="id"
+        class="card fade-in"
+        style="animation-delay: {{index * 0.08}}s"
+        hover-class="card-hover"
+        bindtap="open"
+        data-id="{{item.id}}"
+      >
+        <image class="cover" src="{{item.cover}}" mode="aspectFill" webp="{{true}}" />
+        <view class="stamp">{{item.location}}</view>
+        <view class="card-body">
+          <view class="card-title">{{item.title}}</view>
+          <view class="card-meta"><text class="accent">◆</text> {{item.location}} · {{item.date}}</view>
+          <view class="card-excerpt">{{item.excerpt}}</view>
+          <view class="spots">
+            <text wx:for="{{item.spots}}" wx:for-item="s" wx:key="*this" class="spot">{{s}}</text>
+          </view>
+        </view>
+      </view>
+    </view>
+  </scroll-view>
+</view>

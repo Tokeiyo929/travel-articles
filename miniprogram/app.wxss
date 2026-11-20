@@ -1,0 +1,26 @@
+/* 山河手帖 · 全局（横屏杂志版式） */
+page {
+  background: #f8f4ec;
+  color: #2c2620;
+  /* 站点同款衬线；真机按系统衬线回退 */
+  font-family: "Noto Serif SC", "Source Han Serif SC", "Songti SC", STSong, serif;
+  line-height: 1.8;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* 品牌色 */
+.accent { color: #a4452c; }
+
+/* 小型间隔字（TRAVEL NOTES 式 kicker） */
+.kicker {
+  font-size: 11px;
+  letter-spacing: 6px;
+  color: #a4452c;
+}
+
+/* 通用淡入 */
+.fade-in { animation: fadein .4s ease both; }
+@keyframes fadein {
+  from { opacity: 0; transform: translateY(8px); }
+  to { opacity: 1; transform: none; }
+}

@@ -1,0 +1,57 @@
+<view class="bar">
+  <view class="back" hover-class="back-hover" bindtap="back">‹ 手帖一览</view>
+  <view class="bar-title">{{trip.title}}</view>
+  <view class="bar-side"></view>
+</view>
+
+<view class="page" wx:if="{{trip}}">
+  <view class="head fade-in">
+    <view class="kicker">山河手帖</view>
+    <view class="head-title">{{trip.title}}</view>
+    <view class="head-meta">{{trip.location}} · {{trip.date}}</view>
+    <view class="head-spots">
+      <text wx:for="{{trip.spots}}" wx:key="*this" class="spot">{{item}}</text>
+    </view>
+  </view>
+
+  <block wx:for="{{trip.blocks}}" wx:key="index">
+    <view wx:if="{{item.t === 'h1'}}" class="h1">
+      <view class="h1-bar"></view>
+      <text class="h1-x">{{item.x}}</text>
+    </view>
+
+    <rich-text wx:elif="{{item.t === 'p'}}" class="para" nodes="{{item.x}}"></rich-text>
+
+    <view wx:elif="{{item.t === 'img'}}" class="fig">
+      <image
+        class="fig-img {{item.ratio < 1 ? 'fig-img-portrait' : ''}}"
+        src="{{item.src}}"
+        mode="{{item.ratio < 1 ? 'aspectFit' : 'widthFix'}}"
+        webp="{{true}}"
+        lazy-load="{{true}}"
+        bindload="onImgLoad"
+        data-idx="{{index}}"
+      />
+      <view class="fig-cap">{{item.alt}}</view>
+    </view>
+
+    <view wx:elif="{{item.t === 'video'}}" class="fig">
+      <video
+        class="fig-video"
+        src="{{item.src}}"
+        poster="{{item.poster}}"
+        controls
+        object-fit="contain"
+        enable-progress-gesture="{{false}}"
+      ></video>
+      <view class="fig-cap">{{item.cap}}</view>
+    </view>
+
+    <view wx:elif="{{item.t === 'li'}}" class="li">
+      <text class="li-dot">·</text>
+      <text class="li-x"><text wx:if="{{item.lead}}" class="li-lead">{{item.lead}}：</text>{{item.x}}</text>
+    </view>
+  </block>
+
+  <view class="end">— 手帖完 —</view>
+</view>

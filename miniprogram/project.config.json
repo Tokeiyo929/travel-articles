@@ -1,0 +1,28 @@
+{
+  "description": "山河手帖 · 游记小程序（横屏）",
+  "packOptions": {
+    "ignore": [
+      {
+        "type": "file",
+        "value": "build.js"
+      },
+      {
+        "type": "folder",
+        "value": "node_modules"
+      }
+    ]
+  },
+  "setting": {
+    "urlCheck": false,
+    "es6": true,
+    "enhance": true,
+    "postcss": true,
+    "minified": true,
+    "uglifyFileName": false,
+    "ignoreUploadUnusedFiles": true
+  },
+  "compileType": "miniprogram",
+  "libVersion": "latest",
+  "appid": "wxd40973d90aa34b31",
+  "projectname": "travel-miniprogram"
+}

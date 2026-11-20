@@ -1,0 +1,14 @@
+{
+  "pages": [
+    "pages/index/index",
+    "pages/trip/trip"
+  ],
+  "window": {
+    "navigationStyle": "custom",
+    "backgroundColor": "#f8f4ec",
+    "backgroundTextStyle": "light",
+    "pageOrientation": "landscape"
+  },
+  "lazyCodeLoading": "requiredComponents",
+  "sitemapLocation": "sitemap.json"
+}

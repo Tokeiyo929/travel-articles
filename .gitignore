@@ -8,6 +8,10 @@ staging_2025_gps.json
 spot_match_2025.json
 *_2025.py
 
+# 小程序上传密钥与产物（不入库）
+ci/profiles/*.key
+ci/output/
+
 # 系统与临时文件
 __pycache__/
 *.log
