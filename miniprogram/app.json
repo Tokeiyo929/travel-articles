@@ -4,10 +4,11 @@
     "pages/trip/trip"
   ],
   "window": {
-    "navigationStyle": "custom",
+    "navigationBarBackgroundColor": "#f8f4ec",
+    "navigationBarTextStyle": "black",
+    "navigationBarTitleText": "山河手帖",
     "backgroundColor": "#f8f4ec",
-    "backgroundTextStyle": "light",
-    "pageOrientation": "landscape"
+    "backgroundTextStyle": "light"
   },
   "lazyCodeLoading": "requiredComponents",
   "sitemapLocation": "sitemap.json"

@@ -10,12 +10,8 @@ Page({
       wx.reLaunch({ url: "/pages/index/index" });
       return;
     }
+    wx.setNavigationBarTitle({ title: trip.title });
     this.setData({ trip });
-  },
-
-  back() {
-    if (getCurrentPages().length > 1) wx.navigateBack();
-    else wx.reLaunch({ url: "/pages/index/index" });
   },
 
   onShareAppMessage() {
