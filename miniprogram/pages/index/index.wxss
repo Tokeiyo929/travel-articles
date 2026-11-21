@@ -1,51 +1,40 @@
-/* 地图即首页：通栏大地图 + 可点城市标记 */
+/* 地图即首页 v2：全屏可拖动大地图（movable 双指缩放），纸色风格保留 */
 
 .page {
-  min-height: 100vh;
-  padding: 0 0 40px;
-}
-
-.hero {
-  padding: 26px 24px 20px;
-  border-bottom: 3px double #e2d9c8;
+  position: relative;
+  width: 100vw;
+  height: 100vh;
+  overflow: hidden;
   background: #f8f4ec;
 }
-.kicker {
-  font-size: 10px;
-  letter-spacing: 5px;
-  color: #a99f90;
-}
-.hero-title {
-  margin-top: 8px;
-  font-size: 22px;
-  font-weight: 700;
-  letter-spacing: 3px;
-}
 
-/* 通栏地图：纸色底、无左右边框，视觉主体 */
-.map-wrap {
+.map-area {
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+}
+.map-view {
+  /* 尺寸由 js 以 px 内联（屏宽 2.4 倍） */
+}
+.map-canvas {
   position: relative;
   background: #fffdf8;
-  box-shadow: 0 8px 22px rgba(60, 45, 25, 0.08);
 }
-.map {
-  width: 100%;
+.map-img {
   display: block;
 }
-.routes {
+.routes-img {
   position: absolute;
   left: 0;
   top: 0;
-  width: 100%;
-  height: 100%;
 }
 
-/* 标记：锚点落在经纬换算的百分比处（与 svg 同一投影） */
+/* 标记：锚点在地图画布内的百分比处（与 svg 同一投影），随拖动缩放联动 */
 .marker {
   position: absolute;
   width: 0;
   height: 0;
-  padding: 10px; /* 扩大点按热区 */
+  padding: 12px; /* 扩大点按热区 */
 }
 .dot {
   position: absolute;
@@ -73,12 +62,12 @@
 }
 .label {
   position: absolute;
-  left: 10px;
-  top: -14px;
+  left: 12px;
+  top: -16px;
   background: rgba(255, 253, 248, 0.94);
   border: 1px solid #e2d9c8;
   border-radius: 2px;
-  padding: 3px 8px;
+  padding: 3px 9px;
   white-space: nowrap;
 }
 /* 有手帖的城市：品牌红边提示可点 */
@@ -88,41 +77,45 @@
 }
 .label-left {
   left: auto;
-  right: 10px;
+  right: 12px;
   text-align: right;
 }
 .label-name {
-  font-size: 13px;
+  font-size: 14px;
   font-weight: 700;
   color: #2c2620;
 }
 .label-country {
-  font-size: 10px;
+  font-size: 11px;
   color: #6b6257;
   margin-left: 4px;
 }
 
+/* 浮层：品牌条（上）与统计条（下），不拦截地图拖动 */
+.brand {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+  padding: 12px 16px 10px;
+  background: linear-gradient(to bottom, rgba(248, 244, 236, 0.96), rgba(248, 244, 236, 0.75) 70%, rgba(248, 244, 236, 0));
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 3px;
+  color: #2c2620;
+  pointer-events: none;
+}
 .stats {
-  margin: 26px 0 10px;
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  padding: 10px 16px calc(14px + env(safe-area-inset-bottom));
+  background: linear-gradient(to top, rgba(248, 244, 236, 0.96), rgba(248, 244, 236, 0.75) 70%, rgba(248, 244, 236, 0));
   text-align: center;
-  font-size: 14px;
-  color: #6b6257;
+  font-size: 13px;
   letter-spacing: 1px;
+  color: #6b6257;
+  pointer-events: none;
 }
 .accent { color: #a4452c; }
-
-.foot {
-  margin-top: 18px;
-  text-align: center;
-  font-size: 11px;
-  letter-spacing: 4px;
-  color: #a99f90;
-}
-
-.fade-in {
-  animation: fadeIn .5s ease both;
-}
-@keyframes fadeIn {
-  from { opacity: 0; transform: translateY(6px); }
-  to { opacity: 1; transform: none; }
-}

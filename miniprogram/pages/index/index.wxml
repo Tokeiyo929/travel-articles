@@ -1,31 +1,38 @@
 <view class="page">
-  <view class="hero fade-in">
-    <view class="kicker">TRAVEL ATLAS</view>
-    <view class="hero-title">山河手帖</view>
-  </view>
-
-  <view class="map-wrap fade-in">
-    <image class="map" src="/assets/world-map.svg" mode="widthFix" />
-    <image class="routes" src="{{routesSrc}}" mode="scaleToFill" />
-    <view
-      wx:for="{{visited}}"
-      wx:key="name"
-      class="marker"
-      style="left: {{item.x}}%; top: {{item.y}}%;"
-      bindtap="openCity"
-      data-trip="{{item.trip}}"
-      data-name="{{item.name}}"
+  <movable-area class="map-area">
+    <movable-view
+      class="map-view"
+      direction="all"
+      inertia="{{true}}"
+      scale="{{true}}"
+      scale-min="1"
+      scale-max="3"
+      x="{{initX}}"
+      y="{{initY}}"
     >
-      <view class="pulse"></view>
-      <view class="dot"></view>
-      <view class="label {{item.side === 'left' ? 'label-left' : ''}} {{item.trip ? 'label-link' : ''}}">
-        <text class="label-name">{{item.name}}</text>
-        <text class="label-country">{{item.country}}</text>
+      <view class="map-canvas" style="width: {{mapW}}px; height: {{mapH}}px;">
+        <image class="map-img" src="/assets/world-map.svg" style="width: {{mapW}}px; height: {{mapH}}px;" />
+        <image wx:if="{{routesSrc}}" class="routes-img" src="{{routesSrc}}" style="width: {{mapW}}px; height: {{mapH}}px;" />
+        <view
+          wx:for="{{visited}}"
+          wx:key="name"
+          class="marker"
+          style="left: {{item.x}}%; top: {{item.y}}%;"
+          bindtap="openCity"
+          data-trip="{{item.trip}}"
+          data-name="{{item.name}}"
+        >
+          <view class="pulse"></view>
+          <view class="dot"></view>
+          <view class="label {{item.side === 'left' ? 'label-left' : ''}} {{item.trip ? 'label-link' : ''}}">
+            <text class="label-name">{{item.name}}</text>
+            <text class="label-country">{{item.country}}</text>
+          </view>
+        </view>
       </view>
-    </view>
-  </view>
+    </movable-view>
+  </movable-area>
 
-  <view class="stats">到过 <text class="accent">{{cityCount}}</text> 座城市 · <text class="accent">{{countryCount}}</text> 个国家</view>
-
-  <view class="foot">把走过的路，写成字</view>
+  <view class="brand">山河手帖 · TRAVEL ATLAS</view>
+  <view class="stats">到过 <text class="accent">{{cityCount}}</text> 座城市 · <text class="accent">{{countryCount}}</text> 个国家 · 拖动查看</view>
 </view>
