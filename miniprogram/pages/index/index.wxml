@@ -1,39 +1,31 @@
 <view class="page">
   <view class="hero fade-in">
-    <view class="kicker">TRAVEL NOTES</view>
-    <view class="hero-title">把走过的路，写成字</view>
-    <view class="hero-sub">{{trips.length}} 篇手帖 · 照片会褪色，坐标不会</view>
-    <view class="entries">
-      <view class="map-entry" hover-class="map-entry-hover" bindtap="openMap">
-        <text class="accent">◈</text> 旅程地图 <text class="map-arrow">›</text>
-      </view>
-    </view>
+    <view class="kicker">TRAVEL ATLAS</view>
+    <view class="hero-title">山河手帖</view>
   </view>
 
-  <view class="list">
+  <view class="map-wrap fade-in">
+    <image class="map" src="/assets/world-map.svg" mode="widthFix" />
+    <image class="routes" src="{{routesSrc}}" mode="scaleToFill" />
     <view
-      wx:for="{{trips}}"
-      wx:key="id"
-      class="card fade-in"
-      style="animation-delay: {{index * 0.08}}s"
-      hover-class="card-hover"
-      bindtap="open"
-      data-id="{{item.id}}"
+      wx:for="{{visited}}"
+      wx:key="name"
+      class="marker"
+      style="left: {{item.x}}%; top: {{item.y}}%;"
+      bindtap="openCity"
+      data-trip="{{item.trip}}"
+      data-name="{{item.name}}"
     >
-      <view class="cover-wrap">
-        <image class="cover" src="{{item.cover}}" mode="aspectFill" webp="{{true}}" />
-        <view class="stamp">{{item.location}}</view>
-      </view>
-      <view class="body">
-        <view class="title">{{item.title}}</view>
-        <view class="meta"><text class="accent">◆</text> {{item.location}} · {{item.date}}</view>
-        <view class="excerpt">{{item.excerpt}}</view>
-        <view class="spots">
-          <text wx:for="{{item.spots}}" wx:for-item="s" wx:key="*this" class="spot">{{s}}</text>
-        </view>
+      <view class="pulse"></view>
+      <view class="dot"></view>
+      <view class="label {{item.side === 'left' ? 'label-left' : ''}} {{item.trip ? 'label-link' : ''}}">
+        <text class="label-name">{{item.name}}</text>
+        <text class="label-country">{{item.country}}</text>
       </view>
     </view>
   </view>
 
-  <view class="foot">山河手帖 · 旅行笔记</view>
+  <view class="stats">到过 <text class="accent">{{cityCount}}</text> 座城市 · <text class="accent">{{countryCount}}</text> 个国家</view>
+
+  <view class="foot">把走过的路，写成字</view>
 </view>

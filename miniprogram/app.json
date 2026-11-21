@@ -1,9 +1,7 @@
 {
   "pages": [
     "pages/index/index",
-    "pages/trip/trip",
-    "pages/map/map",
-    "pages/journey/journey"
+    "pages/trip/trip"
   ],
   "window": {
     "navigationBarBackgroundColor": "#f8f4ec",

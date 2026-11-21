@@ -1,116 +1,128 @@
-/* 竖屏首页：hero + 竖排卡片流（微慕/酱茄列表惯例） */
+/* 地图即首页：通栏大地图 + 可点城市标记 */
+
 .page {
   min-height: 100vh;
-  padding: 0 0 32px;
+  padding: 0 0 40px;
 }
 
 .hero {
-  padding: 36px 24px 26px;
+  padding: 26px 24px 20px;
   border-bottom: 3px double #e2d9c8;
+  background: #f8f4ec;
+}
+.kicker {
+  font-size: 10px;
+  letter-spacing: 5px;
+  color: #a99f90;
 }
 .hero-title {
-  margin-top: 10px;
-  font-size: 24px;
-  font-weight: 700;
-  letter-spacing: 2px;
-}
-.hero-sub {
   margin-top: 8px;
-  font-size: 13px;
-  color: #6b6257;
-}
-.entries {
-  margin-top: 16px;
-  display: flex;
-  gap: 10px;
-}
-.map-entry {
-  display: inline-flex;
-  align-items: center;
-  padding: 7px 14px;
-  font-size: 13px;
-  letter-spacing: 1px;
-  color: #2c2620;
-  border: 1px solid #a4452c;
-}
-.map-entry-hover { background: rgba(164, 69, 44, 0.06); }
-.map-arrow { color: #a4452c; margin-left: 2px; }
-
-.list {
-  padding: 22px 16px 0;
-  display: flex;
-  flex-direction: column;
-  gap: 20px;
+  font-size: 22px;
+  font-weight: 700;
+  letter-spacing: 3px;
 }
 
-.card {
+/* 通栏地图：纸色底、无左右边框，视觉主体 */
+.map-wrap {
+  position: relative;
   background: #fffdf8;
-  border: 1px solid #e2d9c8;
-  overflow: hidden;
-  transition: box-shadow .25s ease;
+  box-shadow: 0 8px 22px rgba(60, 45, 25, 0.08);
 }
-.card-hover { box-shadow: 0 10px 26px rgba(60, 45, 25, 0.12); }
-
-.cover-wrap { position: relative; }
-.cover {
+.map {
   width: 100%;
-  height: 400rpx;
   display: block;
 }
-.stamp {
+.routes {
   position: absolute;
-  top: 12px;
-  left: 12px;
-  background: rgba(44, 38, 32, 0.78);
-  color: #f4ede1;
-  font-size: 11px;
-  letter-spacing: 2px;
-  padding: 3px 10px;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
 }
 
-.body {
-  padding: 16px 18px 14px;
+/* 标记：锚点落在经纬换算的百分比处（与 svg 同一投影） */
+.marker {
+  position: absolute;
+  width: 0;
+  height: 0;
+  padding: 10px; /* 扩大点按热区 */
 }
-.title {
-  font-size: 18px;
-  font-weight: 700;
-  line-height: 1.5;
+.dot {
+  position: absolute;
+  left: -5px;
+  top: -5px;
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: #a4452c;
+  box-shadow: 0 0 0 2px #f8f4ec;
 }
-.meta {
-  margin-top: 6px;
-  font-size: 12px;
-  color: #6b6257;
-  letter-spacing: 1px;
+.pulse {
+  position: absolute;
+  left: -5px;
+  top: -5px;
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  border: 1.5px solid #a4452c;
+  animation: pulse 2.4s ease-out infinite;
 }
-.excerpt {
-  margin-top: 10px;
+@keyframes pulse {
+  0% { transform: scale(1); opacity: 0.9; }
+  100% { transform: scale(3.6); opacity: 0; }
+}
+.label {
+  position: absolute;
+  left: 10px;
+  top: -14px;
+  background: rgba(255, 253, 248, 0.94);
+  border: 1px solid #e2d9c8;
+  border-radius: 2px;
+  padding: 3px 8px;
+  white-space: nowrap;
+}
+/* 有手帖的城市：品牌红边提示可点 */
+.label-link {
+  border-color: #a4452c;
+  box-shadow: 0 2px 8px rgba(164, 69, 44, 0.14);
+}
+.label-left {
+  left: auto;
+  right: 10px;
+  text-align: right;
+}
+.label-name {
   font-size: 13px;
+  font-weight: 700;
+  color: #2c2620;
+}
+.label-country {
+  font-size: 10px;
   color: #6b6257;
-  line-height: 1.75;
-  display: -webkit-box;
-  -webkit-box-orient: vertical;
-  -webkit-line-clamp: 3;
-  overflow: hidden;
+  margin-left: 4px;
 }
-.spots {
-  margin-top: 12px;
-  display: flex;
-  flex-wrap: wrap;
-  gap: 6px;
-}
-.spot {
-  font-size: 11px;
-  color: #a4452c;
-  border: 1px solid currentColor;
-  padding: 1px 8px;
+
+.stats {
+  margin: 26px 0 10px;
+  text-align: center;
+  font-size: 14px;
+  color: #6b6257;
   letter-spacing: 1px;
-  opacity: 0.85;
 }
+.accent { color: #a4452c; }
 
 .foot {
-  margin-top: 30px;
+  margin-top: 18px;
   text-align: center;
   font-size: 11px;
-  letter-spacing: 2px;
+  letter-spacing: 4px;
   color: #a99f90;
+}
+
+.fade-in {
+  animation: fadeIn .5s ease both;
+}
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(6px); }
+  to { opacity: 1; transform: none; }
 }
