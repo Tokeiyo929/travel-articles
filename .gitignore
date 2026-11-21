@@ -25,3 +25,6 @@ world-countries.cache.json
 ctrip-orders-*.xlsx
 ctrip-orders-all.json
 tmp-qr-*.png
+
+# GitHub API 调研临时文件
+gh*.json
