@@ -1,4 +1,4 @@
-/* 地图即首页 v2：全屏可拖动大地图（movable 双指缩放），纸色风格保留 */
+/* 地图即首页 v3：WXS 视图层手势（拖动/双指缩放/惯性），纸色风格保留 */
 
 .page {
   position: relative;
@@ -8,16 +8,13 @@
   background: #f8f4ec;
 }
 
-.map-area {
-  width: 100%;
-  height: 100%;
-  overflow: hidden;
-}
-.map-view {
-  /* 尺寸由 js 以 px 内联（屏宽 2.4 倍） */
-}
+/* 地图画布：transform 由 mapGesture.wxs 直接驱动（视图层，无 setData 延迟） */
 .map-canvas {
-  position: relative;
+  position: absolute;
+  left: 0;
+  top: 0;
+  will-change: transform;
+  transform-origin: 0 0;
   background: #fffdf8;
 }
 .map-img {

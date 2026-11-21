@@ -1,0 +1,154 @@
+// 地图手势引擎（WXS 视图层响应事件：拖动/双指缩放/惯性/边界约束）
+// 官方模式：touch 处理跑在视图层，setStyle 即时渲染，无逻辑层跨线程延迟。
+// dataset 传入：mapW/mapH/areaW/areaH（px）、focusX/focusY（0-1，初始对准点）
+
+var st = {
+  ready: false,
+  tx: 0, ty: 0, s: 1,
+  minS: 1, maxS: 4,
+  pinch: false,
+  lx: 0, ly: 0,
+  d0: 0, cx: 0, cy: 0,
+  vx: 0, vy: 0,
+  timer: null,
+  moved: 0, t0: 0
+};
+
+function clamp(v, a, b) { return v < a ? a : (v > b ? b : v); }
+
+// 当前 scale 下的合法位移范围；内容短于视口时固定居中
+function bounds(s, d) {
+  var maxX = d.mapW * s - d.areaW;
+  var maxY = d.mapH * s - d.areaH;
+  return {
+    x: maxX > 0 ? [-maxX, 0] : [maxX / 2, maxX / 2],
+    y: maxY > 0 ? [-maxY, 0] : [maxY / 2, maxY / 2]
+  };
+}
+
+function apply(ins) {
+  ins.selectComponent('.map-canvas').setStyle({
+    transform: 'translate3d(' + st.tx + 'px,' + st.ty + 'px,0) scale(' + st.s + ')'
+  });
+}
+
+function readDataset(e) {
+  var ds = e.instance.getDataset();
+  return { mapW: ds.mapW, mapH: ds.mapH, areaW: ds.areaW, areaH: ds.areaH };
+}
+
+function initIf(e, ins) {
+  var d = readDataset(e);
+  if (!st.ready) {
+    st.ready = true;
+    // 初始缩放：恰好铺满视口（短边铺满），不小于 1
+    st.minS = Math.max(d.areaW / d.mapW, d.areaH / d.mapH);
+    st.s = st.minS > 1 ? st.minS : 1;
+    // 初始对准足迹区（内容坐标比例）
+    var fx = ds_x(e), fy = ds_y(e);
+    var bx = bounds(st.s, d);
+    st.tx = clamp(-(fx * d.mapW * st.s - d.areaW / 2), bx.x[0], bx.x[1]);
+    st.ty = clamp(-(fy * d.mapH * st.s - d.areaH / 2), bx.y[0], bx.y[1]);
+    apply(ins);
+  }
+  return d;
+}
+function ds_x(e) { return e.instance.getDataset().focusX; }
+function ds_y(e) { return e.instance.getDataset().focusY; }
+
+function touchstart(e, ins) {
+  var d = initIf(e, ins);
+  if (st.timer) { clearTimeout(st.timer); st.timer = null; st.vx = 0; st.vy = 0; }
+  var t = e.touches;
+  st.moved = 0; st.t0 = e.timeStamp;
+  if (t.length >= 2) {
+    st.pinch = true;
+    st.d0 = dist(t[0], t[1]);
+    st.cx = (t[0].pageX + t[1].pageX) / 2;
+    st.cy = (t[0].pageY + t[1].pageY) / 2;
+  } else {
+    st.pinch = false;
+    st.lx = t[0].pageX; st.ly = t[0].pageY;
+  }
+}
+
+function touchmove(e, ins) {
+  if (!st.ready) return;
+  var d = readDataset(e);
+  var t = e.touches;
+  if (t.length >= 2) {
+    // 双指缩放（锚点=两指中点）+ 中点位移
+    if (!st.pinch) {
+      st.pinch = true;
+      st.d0 = dist(t[0], t[1]);
+      st.cx = (t[0].pageX + t[1].pageX) / 2;
+      st.cy = (t[0].pageY + t[1].pageY) / 2;
+    }
+    var d1 = dist(t[0], t[1]);
+    var ns = clamp(st.s * (d1 / (st.d0 || d1)), st.minS, st.maxS);
+    var cx = (t[0].pageX + t[1].pageX) / 2;
+    var cy = (t[0].pageY + t[1].pageY) / 2;
+    var k = ns / st.s;
+    st.tx = cx - (cx - st.tx) * k;
+    st.ty = cy - (cy - st.ty) * k;
+    st.tx += cx - st.cx;
+    st.ty += cy - st.cy;
+    st.cx = cx; st.cy = cy;
+    st.s = ns;
+    var bx = bounds(st.s, d);
+    st.tx = clamp(st.tx, bx.x[0], bx.x[1]);
+    st.ty = clamp(st.ty, bx.y[0], bx.y[1]);
+    apply(ins);
+    st.lx = t[0].pageX; st.ly = t[0].pageY;
+    st.vx = 0; st.vy = 0;
+    return;
+  }
+  if (!t.length) return;
+  // 单指拖动 + 速度采样（clamp 前的原始速度，供惯性使用）
+  var dx = t[0].pageX - st.lx;
+  var dy = t[0].pageY - st.ly;
+  st.moved += Math.abs(dx) + Math.abs(dy);
+  st.lx = t[0].pageX; st.ly = t[0].pageY;
+  st.tx += dx; st.ty += dy;
+  var bx2 = bounds(st.s, d);
+  st.vx = clamp(st.tx, bx2.x[0], bx2.x[1]) - st.tx;
+  st.vy = clamp(st.ty, bx2.y[0], bx2.y[1]) - st.ty;
+  st.tx = clamp(st.tx, bx2.x[0], bx2.x[1]);
+  st.ty = clamp(st.ty, bx2.y[0], bx2.y[1]);
+  apply(ins);
+}
+
+function touchend(e, ins) {
+  if (!st.ready) return;
+  if (st.pinch) { st.pinch = false; return; }
+  // 单指惯性滑动（指数衰减，撞边界即停）
+  var d = readDataset(e);
+  var vx = st.vx, vy = st.vy;
+  function step() {
+    var bx = bounds(st.s, d);
+    vx *= 0.93; vy *= 0.93;
+    if (Math.abs(vx) < 0.4 && Math.abs(vy) < 0.4) { st.timer = null; return; }
+    var nx = clamp(st.tx + vx, bx.x[0], bx.x[1]);
+    var ny = clamp(st.ty + vy, bx.y[0], bx.y[1]);
+    if (nx === st.tx && ny === st.ty) { st.timer = null; return; }
+    st.tx = nx; st.ty = ny;
+    apply(ins);
+    st.timer = setTimeout(step, 16);
+  }
+  if (Math.abs(vx) > 0.5 || Math.abs(vy) > 0.5) {
+    if (st.timer) clearTimeout(st.timer);
+    st.timer = setTimeout(step, 16);
+  }
+}
+
+function dist(a, b) {
+  var dx = a.pageX - b.pageX, dy = a.pageY - b.pageY;
+  return Math.sqrt(dx * dx + dy * dy) || 1;
+}
+
+module.exports = {
+  touchstart: touchstart,
+  touchmove: touchmove,
+  touchend: touchend,
+  touchcancel: touchend
+};

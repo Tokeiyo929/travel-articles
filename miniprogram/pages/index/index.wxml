@@ -1,38 +1,41 @@
-<view class="page">
-  <movable-area class="map-area">
-    <movable-view
-      class="map-view"
-      direction="all"
-      inertia="{{true}}"
-      scale="{{true}}"
-      scale-min="1"
-      scale-max="3"
-      x="{{initX}}"
-      y="{{initY}}"
+<wxs src="./mapGesture.wxs" module="gesture" />
+<view
+  class="page"
+  catch:touchstart="{{gesture.touchstart}}"
+  catch:touchmove="{{gesture.touchmove}}"
+  catch:touchend="{{gesture.touchend}}"
+  catch:touchcancel="{{gesture.touchcancel}}"
+>
+  <view
+    class="map-canvas"
+    style="width: {{mapW}}px; height: {{mapH}}px;"
+    data-map-w="{{mapW}}"
+    data-map-h="{{mapH}}"
+    data-area-w="{{areaW}}"
+    data-area-h="{{areaH}}"
+    data-focus-x="{{focusX}}"
+    data-focus-y="{{focusY}}"
+  >
+    <image class="map-img" src="/assets/world-map.svg" style="width: {{mapW}}px; height: {{mapH}}px;" />
+    <image wx:if="{{routesSrc}}" class="routes-img" src="{{routesSrc}}" style="width: {{mapW}}px; height: {{mapH}}px;" />
+    <view
+      wx:for="{{visited}}"
+      wx:key="name"
+      class="marker"
+      style="left: {{item.x}}%; top: {{item.y}}%;"
+      bindtap="openCity"
+      data-trip="{{item.trip}}"
+      data-name="{{item.name}}"
     >
-      <view class="map-canvas" style="width: {{mapW}}px; height: {{mapH}}px;">
-        <image class="map-img" src="/assets/world-map.svg" style="width: {{mapW}}px; height: {{mapH}}px;" />
-        <image wx:if="{{routesSrc}}" class="routes-img" src="{{routesSrc}}" style="width: {{mapW}}px; height: {{mapH}}px;" />
-        <view
-          wx:for="{{visited}}"
-          wx:key="name"
-          class="marker"
-          style="left: {{item.x}}%; top: {{item.y}}%;"
-          bindtap="openCity"
-          data-trip="{{item.trip}}"
-          data-name="{{item.name}}"
-        >
-          <view class="pulse"></view>
-          <view class="dot"></view>
-          <view class="label {{item.side === 'left' ? 'label-left' : ''}} {{item.trip ? 'label-link' : ''}}">
-            <text class="label-name">{{item.name}}</text>
-            <text class="label-country">{{item.country}}</text>
-          </view>
-        </view>
+      <view class="pulse"></view>
+      <view class="dot"></view>
+      <view class="label {{item.side === 'left' ? 'label-left' : ''}} {{item.trip ? 'label-link' : ''}}">
+        <text class="label-name">{{item.name}}</text>
+        <text class="label-country">{{item.country}}</text>
       </view>
-    </movable-view>
-  </movable-area>
+    </view>
+  </view>
 
   <view class="brand">山河手帖 · TRAVEL ATLAS</view>
-  <view class="stats">到过 <text class="accent">{{cityCount}}</text> 座城市 · <text class="accent">{{countryCount}}</text> 个国家 · 拖动查看</view>
+  <view class="stats">到过 <text class="accent">{{cityCount}}</text> 座城市 · <text class="accent">{{countryCount}}</text> 个国家 · 双指缩放</view>
 </view>
